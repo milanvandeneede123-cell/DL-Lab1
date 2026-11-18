@@ -1,0 +1,13 @@
+# Negeer de dataset-map en de zip-file
+archive/
+archive.zip
+mame_data/
+*.zip
+
+# Optioneel: negeer grote opgeslagen modellen (.keras) als je enkel code en CSV's/plots wilt delen
+# Haal het hekje (#) hieronder weg als je de .keras bestanden ook NIET op GitHub wilt:
+*.keras
+
+# Standaard Python cache negeren
+__pycache__/
+.ipynb_checkpoints/
