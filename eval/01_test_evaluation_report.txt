@@ -1,0 +1,43 @@
+=== Evaluatieresultaten: 01_regularized_model.keras ===
+Inference Train - Loss: 0.8726, Accuracy: 0.7712
+Inference Val   - Loss: 1.1636, Accuracy: 0.6945
+Inference Test  - Loss: 1.1990, Accuracy: 0.6753
+Test Balanced Accuracy (Macro Recall): 0.6853
+
+=== Classification Report (Test Set) ===
+                        precision    recall  f1-score   support
+
+    Albumen photograph     0.9518    0.9300    0.9408       700
+                Bronze     0.6689    0.7071    0.6875       700
+               Ceramic     0.8206    0.6143    0.7026       700
+                  Clay     0.7152    0.7380    0.7264       313
+             Engraving     0.6558    0.2886    0.4008       700
+               Etching     0.6076    0.4557    0.5208       700
+               Faience     0.9192    0.6829    0.7836       700
+                 Glass     0.7216    0.6000    0.6552       700
+                  Gold     0.7500    0.8871    0.8128       700
+              Graphite     0.7487    0.7606    0.7546       188
+Hand-colored engraving     0.9383    0.8811    0.9088       328
+  Hand-colored etching     0.8015    0.9127    0.8535       584
+                  Iron     0.5650    0.7547    0.6462       265
+                 Ivory     0.6204    0.6171    0.6188       572
+             Limestone     0.6963    0.5600    0.6207       700
+            Lithograph     0.7801    0.4714    0.5877       700
+                Marble     0.5400    0.5253    0.5325       257
+         Oil on canvas     0.7611    0.7600    0.7605       700
+     Pen and brown ink     0.6896    0.8077    0.7440       286
+      Polychromed wood     0.5284    0.3973    0.4536       375
+             Porcelain     0.7381    0.8171    0.7756       700
+ Silk and metal thread     0.1801    0.6842    0.2851        95
+                Silver     0.6485    0.7486    0.6950       700
+                 Steel     0.5528    0.8271    0.6627       133
+                  Wood     0.7552    0.6214    0.6818       700
+        Wood engraving     0.3279    0.7202    0.4506       361
+             Woodblock     0.7869    0.7386    0.7620       700
+               Woodcut     0.4686    0.7900    0.5883       700
+         Woven fabric      0.6346    0.5757    0.6037       700
+
+              accuracy                         0.6753     15657
+             macro avg     0.6749    0.6853    0.6626     15657
+          weighted avg     0.7054    0.6753    0.6766     15657
+
