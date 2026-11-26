@@ -4,7 +4,6 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def train_underfit_model():
-    # 1. Pad naar data op de BSC
     data_dir = "./mame_data/data"
     csv_path = "./mame_data/MAMe_dataset.csv"
 
@@ -18,7 +17,6 @@ def train_underfit_model():
     img_height, img_width = 256, 256
 
     print("Datasets aanmaken via ImageDataGenerator.flow_from_dataframe...")
-    # Belangrijk: rescale=1./255 houdt de pixelwaarden in [0, 1] tegen loss-explosies
     datagen = ImageDataGenerator(rescale=1./255)
 
     train_generator = datagen.flow_from_dataframe(
@@ -43,8 +41,6 @@ def train_underfit_model():
         shuffle=False
     )
 
-    # 2. Bredere maar ondiepe Underfitting Architectuur (~21k params)
-    # Breed genoeg (32 -> 64) om stabiel te starten, te ondiep + GAP om te kunnen overfitten
     model = tf.keras.Sequential([
         tf.keras.Input(shape=(256, 256, 3)),
 
@@ -61,7 +57,6 @@ def train_underfit_model():
         tf.keras.layers.Dense(29, activation='softmax')
     ])
 
-    # 3. Rustige learning rate + gradient clipping tegen ontploffende loss
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=3e-4, clipnorm=1.0),
         loss='categorical_crossentropy',
@@ -70,7 +65,6 @@ def train_underfit_model():
 
     model.summary()
 
-    # 4. Logger
     model_name = "03_underfit_model"
     csv_logger = tf.keras.callbacks.CSVLogger(f"{model_name}_history.csv", append=False)
 

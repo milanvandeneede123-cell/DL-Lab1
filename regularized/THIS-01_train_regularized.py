@@ -4,7 +4,6 @@ import tensorflow as tf
 from tensorflow.keras.preprocessing.image import ImageDataGenerator
 
 def train_regularized_model():
-    # 1. Pad naar data op de BSC
     data_dir = "./mame_data/data"
     csv_path = "./mame_data/MAMe_dataset.csv"
 
@@ -42,17 +41,14 @@ def train_regularized_model():
         shuffle=False
     )
 
-    # 2. Data Augmentation (wordt enkel tijdens training toegepast, niet bij validatie)
     data_augmentation = tf.keras.Sequential([
         tf.keras.layers.RandomFlip("horizontal"),
         tf.keras.layers.RandomRotation(0.08),
         tf.keras.layers.RandomZoom(0.1),
     ], name="data_augmentation")
 
-    # Lichte L2 regularisatie
     reg = tf.keras.regularizers.l2(1e-4)
 
-    # 3. Geregulariseerde Architectuur (zelfde basis als het overfitting model)
     model = tf.keras.Sequential([
         tf.keras.Input(shape=(256, 256, 3)),
         data_augmentation,
@@ -75,7 +71,6 @@ def train_regularized_model():
         tf.keras.layers.SpatialDropout2D(0.2),
         tf.keras.layers.MaxPooling2D((4, 4)),
 
-        # Classifier met Dropout vóór de Dense-lagen
         tf.keras.layers.Flatten(),
         tf.keras.layers.Dropout(0.5),
         tf.keras.layers.Dense(256, activation='relu', kernel_regularizer=reg),
@@ -83,7 +78,6 @@ def train_regularized_model():
         tf.keras.layers.Dense(29, activation='softmax')
     ])
 
-    # 4. Compileer het model
     model.compile(
         optimizer=tf.keras.optimizers.Adam(learning_rate=5e-4, clipnorm=1.0),
         loss='categorical_crossentropy',
@@ -92,7 +86,6 @@ def train_regularized_model():
 
     model.summary()
 
-    # 5. Callbacks: CSVLogger + ReduceLROnPlateau + EarlyStopping
     model_name = "01_regularized_model"
     callbacks = [
         tf.keras.callbacks.CSVLogger(f"{model_name}_history.csv", append=False),
@@ -115,7 +108,6 @@ def train_regularized_model():
 
     print("Start training (regularized scenario)...")
 
-    # Meer epochs omdat regularisatie het leren bewust vertraagt; EarlyStopping stopt op tijd
     model.fit(
         train_generator,
         validation_data=val_generator,
